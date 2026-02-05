@@ -73,4 +73,4 @@ Aplikasi ini menggunakan pola **MVC (Model-View-Controller)**:
 ### 1️ Clone Repository
 ```bash
 git clone https://github.com/Violennx/Sistem-Absensi-dan-Panen-Pelaporan-Karyawan-Sawit.git
-cd namarepo
+cd Sistem-Absensi-dan-Panen-Pelaporan-Karyawan-Sawit
