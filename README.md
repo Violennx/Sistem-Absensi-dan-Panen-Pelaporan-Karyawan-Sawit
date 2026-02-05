@@ -28,10 +28,6 @@ Aplikasi ini dibuat untuk:
 - Input jumlah panen per karyawan
 - Data terhubung langsung dengan perhitungan upah
 
-###  Perhitungan Upah Otomatis
-- Perhitungan gaji berdasarkan hasil panen
-- Rekap upah per periode
-
 ###  Laporan & Export
 - Laporan data karyawan
 - Laporan absensi
