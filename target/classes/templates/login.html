@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Login | SAWITKU</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+body {
+    height: 100vh;
+    display: flex;
+    background: linear-gradient(135deg, #0f3d2e, #176a3a);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Subtle leaf pattern overlay */
+body::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-image: url('https://www.transparenttextures.com/patterns/leaf.png');
+    opacity: 0.05;
+    z-index: 0;
+}
+
+/* Decorative blobs */
+body::before {
+    content: "";
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    top: -120px;
+    right: -120px;
+}
+
+/* LEFT PANEL */
+.left-panel {
+    flex: 1.2;
+    color: white;
+    padding: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    animation: fadeInLeft 1s ease;
+}
+
+.brand {
+    font-size: 44px;
+    font-weight: 600;
+}
+
+.tagline {
+    margin: 15px 0 40px;
+    opacity: 0.9;
+    line-height: 1.6;
+    max-width: 420px;
+}
+
+/* Feature grid */
+.features {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+    max-width: 450px;
+}
+
+.feature-box {
+    background: rgba(255,255,255,0.08);
+    padding: 15px;
+    border-radius: 10px;
+    backdrop-filter: blur(5px);
+    font-size: 13px;
+    transition: 0.3s;
+}
+
+.feature-box:hover {
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.15);
+}
+
+/* FOOTER */
+.footer-note {
+    position: absolute;
+    bottom: 20px;
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+/* RIGHT PANEL */
+.right-panel {
+    flex: 1;
+    background: #f4f7f6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    position: relative;
+    z-index: 1;
+    animation: fadeInRight 1s ease;
+}
+
+.login-card {
+    width: 100%;
+    max-width: 380px;
+    background: white;
+    padding: 45px 35px 35px;
+    border-radius: 16px;
+    box-shadow: 0 20px 45px rgba(0,0,0,0.15);
+    position: relative;
+}
+
+/* Logo circle */
+.logo-circle {
+    width: 70px;
+    height: 70px;
+    background: linear-gradient(135deg, #1e8449, #27ae60);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    font-size: 28px;
+    position: absolute;
+    top: -35px;
+    left: 50%;
+    transform: translateX(-50%);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.2);
+}
+
+.login-card h2 {
+    text-align: center;
+    margin: 30px 0 25px;
+    color: #145c3a;
+}
+
+/* FORM */
+.form-group {
+    margin-bottom: 18px;
+    position: relative;
+}
+
+.form-group label {
+    font-size: 14px;
+    margin-bottom: 6px;
+    display: block;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 11px 40px 11px 12px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    transition: 0.2s;
+}
+
+.form-group input:focus {
+    border-color: #1e8449;
+    box-shadow: 0 0 0 2px rgba(30,132,73,0.15);
+    outline: none;
+}
+
+/* Show/Hide password icon */
+.toggle-password {
+    position: absolute;
+    right: 12px;
+    top: 37px;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+}
+
+/* BUTTON */
+.login-btn {
+    width: 100%;
+    padding: 12px;
+    background: #1e8449;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.login-btn:hover {
+    background: #176a3a;
+}
+
+.extra-links {
+    text-align: center;
+    margin-top: 15px;
+    font-size: 13px;
+}
+
+.extra-links a {
+    color: #1e8449;
+    text-decoration: none;
+}
+
+/* Animations */
+@keyframes fadeInLeft {
+    from {opacity:0; transform: translateX(-30px);}
+    to {opacity:1; transform: translateX(0);}
+}
+
+@keyframes fadeInRight {
+    from {opacity:0; transform: translateX(30px);}
+    to {opacity:1; transform: translateX(0);}
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+    .left-panel { display: none; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- INTRO VIDEO SPLASH -->
+<div id="intro-video">
+    <video autoplay muted playsinline id="bgVideo">
+        <source src="video-sawit.mp4" type="video/mp4">
+    </video>
+</div>
+
+
+<div class="left-panel">
+    <div class="brand">SAWITKU</div>
+    <div class="tagline">
+        Sistem manajemen kebun sawit modern untuk memantau karyawan, absensi panen, dan laporan kerja secara efisien.
+    </div>
+
+    <div class="features">
+        <div class="feature-box"><strong>👨‍🌾 Data Karyawan</strong>Kelola pekerja dengan rapi</div>
+        <div class="feature-box"><strong>📝 Absensi Panen</strong>Pencatatan panen harian</div>
+        <div class="feature-box"><strong>📊 Laporan Kerja</strong>Monitoring performa tim</div>
+        <div class="feature-box"><strong>🔒 Sistem Aman</strong>Proteksi login & data</div>
+    </div>
+
+    <div class="footer-note">© 2026 SAWITKU System</div>
+</div>
+
+<div class="right-panel">
+    <div class="login-card">
+        <div class="logo-circle">🌿</div>
+        <h2>Masuk ke Sistem</h2>
+
+                <form action="/login" method="post">
+            <p style="color:red; text-align:center;">[[${error}]]</p>
+
+            <div class="form-group">
+                <label>Username</label>
+                <input type="text" name="username" placeholder="Masukkan username" required>
+            </div>
+
+            <div class="form-group">
+                <label>Password</label>
+                <input type="password" id="password" name="password" placeholder="Masukkan password" required>
+                <span class="toggle-password" onclick="togglePassword()">👁</span>
+            </div>
+
+            <button class="login-btn" type="submit">Login</button>
+        </form>
+
+    </div>
+</div>
+
+<script>
+function togglePassword() {
+    const pass = document.getElementById("password");
+    pass.type = pass.type === "password" ? "text" : "password";
+}
+</script>
+
+</body>
+</html>

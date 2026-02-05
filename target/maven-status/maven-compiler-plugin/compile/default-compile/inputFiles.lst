@@ -1,0 +1,17 @@
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\controller\AbsensiController.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\controller\AuthController.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\controller\DashboardController.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\controller\KaryawanController.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\controller\LaporanController.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\LaporanApplication.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\model\Absensi.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\model\Karyawan.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\model\WeeklyTotal.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\repository\AbsensiRepository.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\repository\DashboardRepository.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\repository\KaryawanRepository.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\service\AbsensiService.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\service\DashboardService.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\service\KaryawanService.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\example\Laporan\service\LaporanService.java
+D:\Kampus\Tugas\Pemrograman Terapan\Tugas Akhir\Laporan\src\main\java\com\util\PdfGenerator.java

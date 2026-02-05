@@ -1,0 +1,99 @@
+<head>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+
+<body class="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-100 via-emerald-200 to-green-300 overflow-hidden">
+
+<div class="relative w-full max-w-2xl p-6">
+
+    <!-- Background glow -->
+    <div class="absolute -top-16 -left-16 w-72 h-72 bg-green-500 opacity-20 rounded-full blur-3xl animate-pulse"></div>
+    <div class="absolute -bottom-16 -right-16 w-72 h-72 bg-lime-500 opacity-20 rounded-full blur-3xl animate-pulse"></div>
+
+    <!-- Card -->
+    <div class="relative bg-white/80 backdrop-blur-lg rounded-2xl shadow-2xl p-8 border border-white/40 animate-fadeIn">
+
+        <h2 class="text-2xl font-bold text-green-800 mb-6 flex items-center gap-3">
+            <i class="fa-solid fa-leaf text-green-600"></i>
+            Edit Absensi & Panen
+        </h2>
+
+        <form th:action="@{/absensi/update}"
+              th:object="${absensi}"
+              method="post"
+              class="space-y-6">
+
+            <input type="hidden" th:field="*{id}"/>
+
+            <!-- Kode Karyawan -->
+            <div class="relative">
+                <i class="fa fa-id-badge absolute top-4 left-3 text-gray-400"></i>
+                <input type="text" th:field="*{karyawanId}" readonly
+                       class="w-full pl-10 pt-5 pb-2 border rounded-lg bg-gray-100 focus:ring-2 focus:ring-green-400 outline-none"/>
+                <label class="absolute left-10 top-2 text-xs text-gray-500">Kode Karyawan</label>
+            </div>
+
+            <!-- Nama -->
+            <div class="relative">
+                <i class="fa fa-user absolute top-4 left-3 text-gray-400"></i>
+                <input type="text" th:value="${absensi.nama}" readonly
+                       class="w-full pl-10 pt-5 pb-2 border rounded-lg bg-gray-100 outline-none"/>
+                <label class="absolute left-10 top-2 text-xs text-gray-500">Nama Karyawan</label>
+            </div>
+
+            <!-- Tanggal -->
+            <div class="relative">
+                <i class="fa fa-calendar-day absolute top-4 left-3 text-gray-400"></i>
+                <input type="date" th:field="*{tanggal}"
+                       class="w-full pl-10 pt-5 pb-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none"/>
+                <label class="absolute left-10 top-2 text-xs text-gray-500">Tanggal</label>
+            </div>
+
+            <!-- Status -->
+            <div class="relative">
+                <i class="fa fa-clipboard-check absolute top-4 left-3 text-gray-400"></i>
+                <input type="text" th:field="*{status}"
+                       class="w-full pl-10 pt-5 pb-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none"/>
+                <label class="absolute left-10 top-2 text-xs text-gray-500">Status Kehadiran</label>
+            </div>
+
+            <!-- Blok -->
+            <div class="relative">
+                <i class="fa fa-map-location-dot absolute top-4 left-3 text-gray-400"></i>
+                <input type="text" th:field="*{blok}"
+                       class="w-full pl-10 pt-5 pb-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none"/>
+                <label class="absolute left-10 top-2 text-xs text-gray-500">Blok Kebun</label>
+            </div>
+
+            <!-- Jumlah Panen -->
+            <div class="relative">
+                <i class="fa fa-basket-shopping absolute top-4 left-3 text-gray-400"></i>
+                <input type="number" th:field="*{jumlahPanen}"
+                       class="w-full pl-10 pt-5 pb-2 border rounded-lg focus:ring-2 focus:ring-green-400 outline-none"/>
+                <label class="absolute left-10 top-2 text-xs text-gray-500">Jumlah Panen (Kg)</label>
+            </div>
+
+            <button type="submit"
+                class="w-full bg-gradient-to-r from-green-600 to-emerald-700 text-white py-3 rounded-lg shadow-lg 
+                       hover:shadow-2xl hover:-translate-y-1 active:scale-95 transition duration-300">
+                🌾 Update Data Absensi
+            </button>
+
+        </form>
+    </div>
+</div>
+
+<style>
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fadeIn {
+    animation: fadeIn 0.8s ease-out;
+}
+</style>
+
+</body>
+

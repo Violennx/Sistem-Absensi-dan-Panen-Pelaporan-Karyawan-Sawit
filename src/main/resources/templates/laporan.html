@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Laporan Kerja</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+    .hidden-section { display: none; }
+    .active-nav { background-color:#065f46; border-left:4px solid #34d399; }
+
+    @keyframes fadeSlideIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeZoom {
+        from { opacity: 0; transform: scale(0.98); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-page {
+        animation: fadeSlideIn 0.6s ease-out;
+    }
+
+    .animate-card {
+        animation: fadeZoom 0.5s ease-out;
+    }
+    </style>
+
+</head>
+<body class="bg-gradient-to-br from-green-100 to-green-200 min-h-screen flex justify-center items-center p-6 font-sans">
+
+<div class="bg-white w-full max-w-7xl h-[90vh] flex rounded-2xl shadow-2xl overflow-hidden animate-page">
+
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-gradient-to-b from-green-900 to-green-800 text-white flex flex-col">
+        <div class="p-6 border-b border-green-700">
+            <h1 class="text-2xl font-bold tracking-wide">🌴 SAWITKU</h1>
+            <p class="text-xs text-green-300">Sistem Manajemen Kebun</p>
+        </div>
+
+        <nav class="flex-1 py-4 space-y-1 text-sm">
+
+            <a th:href="@{/dashboard}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300">
+                <i class="fa fa-chart-line w-5"></i> Dashboard
+            </a>
+
+            <a th:href="@{/karyawan}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300">
+
+                <i class="fa fa-users w-5"></i> Data Karyawan
+            </a>
+            <a th:href="@{/absensi}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300">
+
+                <i class="fa fa-clipboard w-5"></i> Absensi & Panen
+            </a>
+            <a th:href="@{/laporan}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300 active-nav">
+
+                <i class="fa fa-file-pdf w-5"></i> Laporan Kerja
+            </a>
+        </nav>
+
+        <div class="p-5 border-t border-green-700 text-sm">
+            <p class="text-green-200 mb-2" th:text="'👋 ' + ${session.loggedUser}"></p>
+            <a href="/logout" class="block text-red-300 hover:text-white transition">Logout</a>
+        </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="flex-1 flex flex-col bg-gray-50">
+
+        <!-- HEADER -->
+        <header class="h-16 bg-white shadow flex items-center justify-between px-8">
+            <div>
+                <h2 class="text-lg font-semibold text-gray-700">Laporan Kerja Karyawan</h2>
+                <p class="text-xs text-gray-400">Dashboard / Laporan</p>
+            </div>
+            <div class="text-sm text-gray-500">
+                📊 Rekap Absensi & Panen
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="flex-1 overflow-y-auto p-8 space-y-6">
+
+            <!-- FILTER CARD -->
+            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 animate-card">
+                <h3 class="text-md font-semibold mb-4 text-green-700">Filter Laporan</h3>
+
+                <form th:action="@{/laporan}" method="get" class="grid grid-cols-4 gap-5">
+
+                    <div>
+                        <label class="text-sm text-gray-600">Karyawan</label>
+                        <select name="karyawanId" class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                            <option value="">-- Semua Karyawan --</option>
+                            <option th:each="k : ${listKaryawan}"
+                                    th:value="${k.id}"
+                                    th:text="${k.nama}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-sm text-gray-600">Bulan</label>
+                        <select name="bulan" class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                            <option th:each="b : ${#numbers.sequence(1,12)}"
+                                    th:value="${b}"
+                                    th:text="${b}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-sm text-gray-600">Tahun</label>
+                        <select name="tahun" class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                            <option th:each="t : ${#numbers.sequence(2023,2030)}"
+                                    th:value="${t}"
+                                    th:text="${t}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="flex items-end">
+                        <button class="bg-green-600 hover:bg-green-700 hover:scale-105 active:scale-95 text-white px-6 py-2 rounded-lg shadow transition duration-200">
+                            🔍 Tampilkan
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TABLE CARD -->
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden animate-card">
+
+                <div class="p-4 border-b bg-gray-50 flex justify-between items-center">
+                    <h3 class="font-semibold text-gray-700">Hasil Laporan</h3>
+                    <span class="text-xs text-gray-400">Total Data: <span th:text="${#lists.size(listLaporan)}"></span></span>
+                </div>
+
+                <table class="w-full text-sm">
+                    <thead class="bg-green-50 text-green-800">
+                        <tr>
+                            <th class="p-3 text-left">Nama Karyawan</th>
+                            <th class="p-3 text-left">Tanggal</th>
+                            <th class="p-3 text-left">Status</th>
+                            <th class="p-3 text-left">Blok</th>
+                            <th class="p-3 text-left">Panen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="l : ${listLaporan}" class="border-t hover:bg-green-50 transition">
+                            <td class="p-3 font-medium" th:text="${l.nama}"></td>
+                            <td class="p-3" th:text="${l.tanggal}"></td>
+                            <td class="p-3">
+                                <span th:classappend="${l.status == 'HADIR'} ? 'bg-green-100 text-green-700' :
+                                                        (${l.status == 'IZIN'} ? 'bg-yellow-100 text-yellow-700' :
+                                                        'bg-red-100 text-red-700')"
+                                      class="px-2 py-1 rounded text-xs font-semibold"
+                                      th:text="${l.status}">
+                                </span>
+                            </td>
+                            <td class="p-3" th:text="${l.blok}"></td>
+                            <td class="p-3" th:text="${l.jumlahPanen + ' Kg'}"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- PDF BUTTON -->
+            <div class="flex justify-end">
+                <a th:href="@{/laporan/pdf(
+                    karyawanId=${param.karyawanId},
+                    bulan=${param.bulan},
+                    tahun=${param.tahun}
+                )}"
+                   class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-lg shadow transition">
+                    📄 Cetak PDF
+                </a>
+            </div>
+
+        </main>
+    </section>
+</div>
+
+</body>
+
+</html>

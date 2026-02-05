@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="id" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Absensi & Panen</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+    <style>
+        .active-nav {
+            background-color: #065f46;
+            border-left: 4px solid #34d399;
+        }
+
+        .hidden-section { display: none; }
+    .active-nav { background-color:#065f46; border-left:4px solid #34d399; }
+
+    @keyframes fadeSlideIn {
+        from { opacity: 0; transform: translateY(15px); }
+        to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeZoom {
+        from { opacity: 0; transform: scale(0.98); }
+        to { opacity: 1; transform: scale(1); }
+    }
+
+    .animate-page {
+        animation: fadeSlideIn 0.6s ease-out;
+    }
+
+    .animate-card {
+        animation: fadeZoom 0.5s ease-out;
+    }
+
+        
+    </style>
+</head>
+
+<body class="bg-gradient-to-br from-green-100 to-green-200 min-h-screen flex justify-center items-center p-6 font-sans">
+
+<div class="bg-white w-full max-w-7xl h-[90vh] flex rounded-2xl shadow-2xl overflow-hidden animate-page">
+
+
+    <!-- SIDEBAR -->
+    <aside class="w-64 bg-gradient-to-b from-green-900 to-green-800 text-white flex flex-col">
+        <div class="p-6 border-b border-green-700">
+            <h1 class="text-2xl font-bold tracking-wide">🌴 SAWITKU</h1>
+            <p class="text-xs text-green-300">Sistem Manajemen Kebun</p>
+        </div>
+
+        <nav class="flex-1 py-4 space-y-1 text-sm">
+
+            
+            <a th:href="@{/dashboard}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300">
+                <i class="fa fa-chart-line w-5"></i> Dashboard
+            </a>
+
+            <a th:href="@{/karyawan}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300">
+
+                <i class="fa fa-users w-5"></i> Data Karyawan
+            </a>
+
+            <a th:href="@{/absensi}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300 active-nav">
+
+                <i class="fa fa-clipboard w-5"></i> Absensi & Panen
+            </a>
+
+            <a th:href="@{/laporan}" class="flex items-center gap-3 px-6 py-3 hover:bg-green-700 hover:translate-x-1 transition duration-300">
+
+                <i class="fa fa-file-pdf w-5"></i> Laporan Kerja
+            </a>
+        </nav>
+
+        <div class="p-5 border-t border-green-700 text-sm">
+            <p class="text-green-200 mb-2" th:text="'👋 ' + ${session.loggedUser}"></p>
+            <a href="/logout" class="block text-red-300 hover:text-white transition">Logout</a>
+        </div>
+    </aside>
+
+    <!-- CONTENT -->
+    <section class="flex-1 flex flex-col bg-gray-50">
+
+        <!-- HEADER -->
+        <header class="h-16 bg-white shadow flex items-center justify-between px-8">
+            <div>
+                <h2 class="text-lg font-semibold text-gray-700">Absensi & Panen</h2>
+                <p class="text-xs text-gray-400">Dashboard / Absensi</p>
+            </div>
+            <div class="text-sm text-gray-500">
+                🌤️ Monitoring Kehadiran & Hasil Panen
+            </div>
+        </header>
+
+        <!-- MAIN -->
+        <main class="flex-1 overflow-y-auto p-8 space-y-6">
+
+            <!-- FORM CARD -->
+            <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 animate-card">
+
+                <h3 class="text-md font-semibold mb-4 text-green-700">Input Absensi Karyawan</h3>
+
+                <form th:action="@{/absensi/save}"
+                      th:object="${absensi}"
+                      method="post"
+                      class="grid grid-cols-2 gap-5">
+
+                    <div>
+                        <label class="text-sm text-gray-600">Nama Karyawan</label>
+                        <select id="karyawanSelect" th:field="*{karyawanId}"
+                                class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                            <option value="">-- Pilih Karyawan --</option>
+                            <option th:each="k : ${listKaryawan}"
+                                    th:value="${k.id}"
+                                    th:data-kode="${k.kodeKaryawan}"
+                                    th:data-nama="${k.nama}"
+                                    th:text="${k.kodeKaryawan + ' - ' + k.nama}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-sm text-gray-600">Tanggal</label>
+                        <input type="date" th:field="*{tanggal}"
+                               class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="text-sm text-gray-600">Status</label>
+                        <select th:field="*{status}"
+                                class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                            <option value="HADIR">Hadir</option>
+                            <option value="IZIN">Izin</option>
+                            <option value="ALPA">Alpa</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label class="text-sm text-gray-600">Blok</label>
+                        <input th:field="*{blok}"
+                               class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                    </div>
+
+                    <div>
+                        <label class="text-sm text-gray-600">Jumlah Panen (Kg)</label>
+                        <input type="number" th:field="*{jumlahPanen}"
+                               class="w-full border p-2 rounded-lg focus:ring-2 focus:ring-green-400 outline-none">
+                    </div>
+
+                    <div class="col-span-2 text-right">
+                        <button class="bg-green-600 hover:bg-green-700 hover:scale-105 active:scale-95 text-white px-6 py-2 rounded-lg shadow transition duration-200">
+                            📥 Simpan Absensi 
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+            <!-- TABLE CARD -->
+            <div class="bg-white rounded-xl shadow-md border border-gray-100 overflow-hidden animate-card">
+
+                <div class="p-4 border-b bg-gray-50 flex justify-between items-center">
+                    <h3 class="font-semibold text-gray-700">Riwayat Absensi</h3>
+                    <span class="text-xs text-gray-400">Total Data: <span th:text="${#lists.size(listAbsensi)}"></span></span>
+                </div>
+
+                <table class="w-full text-sm">
+                    <thead class="bg-green-50 text-green-800">
+                        <tr>
+                            <th class="p-3 text-left">Nama</th>
+                            <th class="p-3 text-left">Tanggal</th>
+                            <th class="p-3 text-left">Status</th>
+                            <th class="p-3 text-left">Blok</th>
+                            <th class="p-3 text-left">Panen</th>
+                            <th class="p-3 text-center">Aksi</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr th:each="a : ${listAbsensi}" class="border-t hover:bg-green-50 transition">
+                            <td class="p-3 font-medium" th:text="${a.nama}"></td>
+                            <td class="p-3" th:text="${a.tanggal}"></td>
+                            <td class="p-3">
+                                <span th:classappend="${a.status == 'HADIR'} ? 'bg-green-100 text-green-700' :
+                                                        (${a.status == 'IZIN'} ? 'bg-yellow-100 text-yellow-700' :
+                                                        'bg-red-100 text-red-700')"
+                                      class="px-2 py-1 rounded text-xs font-semibold"
+                                      th:text="${a.status}">
+                                </span>
+                            </td>
+                            <td class="p-3" th:text="${a.blok}"></td>
+                            <td class="p-3" th:text="${a.jumlahPanen + ' Kg'}"></td>
+                            <td class="p-3 text-center space-x-3">
+                                
+                                <a th:href="@{/absensi/edit/{id}(id=${a.id})}" class="text-blue-600 hover:text-blue-800">
+                                    <i class="fa fa-pen"></i>
+                                </a>
+                                <a th:href="@{/absensi/delete/{id}(id=${a.id})}" onclick="return confirm('Hapus data?')" class="text-red-600 hover:text-red-800">
+                                    <i class="fa fa-trash"></i>
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </main>
+    </section>
+</div>
+
+</body>
+
+
+<script>
+document.getElementById('karyawanSelect').addEventListener('change', function() {
+    const selectedOption = this.options[this.selectedIndex];
+    const nama = selectedOption.getAttribute('data-nama');
+    document.getElementById('namaKaryawan').value = nama || '';
+});
+</script>
+
+</html>
